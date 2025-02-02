@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import styles from "./PesoFormulario.module.css"
 
  /* eslint-disable react/prop-types */
 const PesoForm = ({ agregarPeso }) => {
@@ -13,16 +14,20 @@ const PesoForm = ({ agregarPeso }) => {
   };
 
   return (
+    <div className={styles.div}>
     <form onSubmit={handleSubmit}>
+      <label className={styles.label} >INGRESE EL PESO: </label>
       <input
-        type="number"
+      className={styles.input}
+        type="text"
         value={peso}
         onChange={(e) => setPeso(e.target.value)}
-        placeholder="Ingresa el peso"
+        //placeholder="Ingresa el peso"
         required
       />
-      <button type="submit">Agregar Peso</button>
+      <button className={styles.button} type="submit">AGREGAR</button>
     </form>
+    </div>
   );
 };
 

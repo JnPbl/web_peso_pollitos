@@ -3,8 +3,6 @@ import PesoForm from './componentes/PesoFormulario';
 import Estadisticas from './componentes/Estadisticas';
 import MostrarPesos from './componentes/MostrarPesos';
 
-import './App.css'
-
 function App() {
  const [pesos, setPesos] = useState([]);
  const [promedio, setPromedio] = useState(null);
