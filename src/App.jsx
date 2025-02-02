@@ -1,34 +1,52 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import PesoForm from './componentes/PesoFormulario';
+import Estadisticas from './componentes/Estadisticas';
+
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+ const [pesos, setPesos] = useState([]);
+ const [promedio, setPromedio] = useState(null);
+ const [desviacion, setDesviacion] = useState(null);
+ const [cv, setCV] = useState(null);
+
+
+
+  // Función para agregar el peso al array
+  const agregarPeso = (peso) => {
+    setPesos([...pesos, peso]);
+  };
+
+  // Calcular promedio, desviación y CV
+  const calcularEstadisticas = () => {
+    if (pesos.length > 0) {
+      const suma = pesos.reduce((acc, curr) => acc + curr, 0);
+      const prom = suma / pesos.length;
+
+      const varianza = pesos.reduce((acc, curr) => acc + Math.pow(curr - prom, 2), 0) / pesos.length;
+      const desviacion = Math.sqrt(varianza);
+
+      const coeficienteVariacion = (desviacion / prom) * 100;
+
+      setPromedio(prom);
+      setDesviacion(desviacion);
+      setCV(coeficienteVariacion);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+    <h1>Ingreso de Pesos de Bebés</h1>
+    <PesoForm agregarPeso={agregarPeso} />
+    <button onClick={calcularEstadisticas}>Calcular Estadísticas</button>
+
+    <Estadisticas
+      promedio={promedio}
+      desviacion={desviacion}
+      cv={cv}
+      pesos={pesos}
+    />
+  </div>
   )
 }
 
