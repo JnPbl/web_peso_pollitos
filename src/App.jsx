@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import PesoForm from './componentes/PesoFormulario';
 import Estadisticas from './componentes/Estadisticas';
+import MostrarPesos from './componentes/MostrarPesos';
 
 import './App.css'
 
@@ -38,6 +39,7 @@ function App() {
     <div>
     <h1>Ingreso de Pesos de Bebés</h1>
     <PesoForm agregarPeso={agregarPeso} />
+    <MostrarPesos pesos = {pesos}/>
     <button onClick={calcularEstadisticas}>Calcular Estadísticas</button>
 
     <Estadisticas
