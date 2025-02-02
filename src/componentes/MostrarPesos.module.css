@@ -1,0 +1,25 @@
+.container {
+  height: auto;
+}
+
+.titulo {
+  font-size: 25px;
+  padding: 8px;
+  text-align: start;
+  text-decoration: underline;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(15, 1fr);
+  gap: 2px;
+  border: 2px solid rgb(192, 191, 191);
+}
+
+.element { /* Para ver cada "elemento" en el grid */
+  padding: 2px 5px;
+}
+
+.ul {
+    list-style-type: none;
+}
