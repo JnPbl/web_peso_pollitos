@@ -4,6 +4,7 @@ import Estadisticas from "./componentes/Estadisticas";
 import MostrarPesos from "./componentes/MostrarPesos";
 import styles from "./index.module.css";
 import Histograma from "./componentes/HIstograma";
+import DatosGranja from "./componentes/DatosGranja";
 
 function App() {
   const [pesos, setPesos] = useState([]);
@@ -39,6 +40,7 @@ function App() {
     <div className={styles.body}>
       <div className={styles.container}>
         <h1 className={styles.titulo}>Ingreso de Pesos de Bebés</h1>
+        <DatosGranja />
         <PesoForm agregarPeso={agregarPeso} />
         <MostrarPesos pesos={pesos} />
         <button className={styles.buton} onClick={calcularEstadisticas}>Calcular Estadísticas</button>
