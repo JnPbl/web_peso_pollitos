@@ -1,17 +1,20 @@
-import Histograma from "./HIstograma";
+
+import styles from "./Estadisticas.module.css";
  /* eslint-disable react/prop-types */
-const Estadisticas = ({ promedio, desviacion, cv, pesos }) => {
+const Estadisticas = ({ promedio, desviacion, cv}) => {
   return (
-    <div>
+    <div className={styles.container}>
       {promedio !== null && (
-        <div>
-          <h2>Estadísticas</h2>
-          <p>Promedio: {promedio}</p>
+        <div className={styles.calculos}>
+          <h2 className={styles.titulo}>Estadísticas:</h2>
+          <div className={styles.parametros}>
+          <p>Promedio: {promedio} gr.</p>
           <p>Desviación Estándar: {desviacion}</p>
           <p>Coeficiente de Variación (CV): {cv}%</p>
+          </div>
         </div>
       )}
-        <Histograma pesos={pesos} />
+       
     </div>
   );
 };

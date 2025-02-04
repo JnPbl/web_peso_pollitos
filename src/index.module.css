@@ -5,7 +5,7 @@
 }
 
 .body{
-  height: 100vh;
+  
   display: flex;
   justify-content: center;
   align-items: center;
@@ -14,11 +14,24 @@
 
 .container{
   width: 70%;
-  height: 90%;
+  height:90%;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center;
+  flex-direction: column;
 }
 
 .titulo{
-margin: 5px;
+margin: 25px;
+padding: 8px;
 font-size: 45px;
 text-align: center;
+}
+
+.buton{
+  padding: 8px 16px;
+  font-size: 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 15px; 
 }

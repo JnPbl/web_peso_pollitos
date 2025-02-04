@@ -3,6 +3,7 @@ import PesoForm from "./componentes/PesoFormulario";
 import Estadisticas from "./componentes/Estadisticas";
 import MostrarPesos from "./componentes/MostrarPesos";
 import styles from "./index.module.css";
+import Histograma from "./componentes/HIstograma";
 
 function App() {
   const [pesos, setPesos] = useState([]);
@@ -18,15 +19,15 @@ function App() {
   // Calcular promedio, desviación y CV
   const calcularEstadisticas = () => {
     if (pesos.length > 0) {
-      const suma = pesos.reduce((acc, curr) => acc + curr, 0);
-      const prom = suma / pesos.length;
+      const suma = pesos.reduce((acumulador, valor) => acumulador + valor, 0);
+      const prom = (suma / pesos.length).toFixed(2);
 
       const varianza =
-        pesos.reduce((acc, curr) => acc + Math.pow(curr - prom, 2), 0) /
+        pesos.reduce((acumulador, valor) => acumulador + Math.pow(valor - prom, 2), 0) /
         pesos.length;
-      const desviacion = Math.sqrt(varianza);
+      const desviacion = Math.sqrt(varianza).toFixed(2);
 
-      const coeficienteVariacion = (desviacion / prom) * 100;
+      const coeficienteVariacion = ((desviacion / prom) * 100).toFixed(2);
 
       setPromedio(prom);
       setDesviacion(desviacion);
@@ -40,14 +41,14 @@ function App() {
         <h1 className={styles.titulo}>Ingreso de Pesos de Bebés</h1>
         <PesoForm agregarPeso={agregarPeso} />
         <MostrarPesos pesos={pesos} />
-        <button onClick={calcularEstadisticas}>Calcular Estadísticas</button>
+        <button className={styles.buton} onClick={calcularEstadisticas}>Calcular Estadísticas</button>
 
         <Estadisticas
           promedio={promedio}
           desviacion={desviacion}
           cv={cv}
-          pesos={pesos}
         />
+         <Histograma pesos={pesos} />
       </div>
     </div>
   );
