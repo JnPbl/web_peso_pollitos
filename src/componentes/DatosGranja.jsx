@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styles from "./DatosGranja.module.css"
 /* eslint-disable react/prop-types */
-const DatosGranja = () => {
+const DatosGranja = ({onDatosChange}) => {
   const [granja, setGranja] = useState({
     nombre: "",
     fecha: "",
@@ -15,7 +15,10 @@ const DatosGranja = () => {
       ...prevState,
       [name]: value, // Actualizamos solo el campo correspondiente
     }));
+    onDatosChange({...granja,[name]:value});
   };
+
+  
 
   return (
     <div className={styles.container}>

@@ -2,12 +2,12 @@
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js';
 import styles from './Histograma.module.css';
-import {useMemo} from 'react'
+import React,{useMemo} from 'react'
 
 // Registrar los componentes de Chart.js
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale);
 
-const Histograma = ({ pesos }) => {
+const Histograma =React.forwardRef( ({ pesos },ref) => {
 
   const frecuencias = useMemo(() => {
     const conteo = {};
@@ -32,7 +32,8 @@ const Histograma = ({ pesos }) => {
   };
 
   const options = {
-    responsive: true, // Asegura que el gráfico sea responsivo
+    responsive: true,
+    maintainAspectRatio: false,  // Asegura que el gráfico sea responsivo
     plugins: {
       title: {
         display: true, // Mostrar título
@@ -61,10 +62,14 @@ const Histograma = ({ pesos }) => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} ref={ref}>
       <Bar data={data} options={options} />
     </div>
   )
-};
+});
+
+Histograma.displayName = 'Histograma';
 
 export default Histograma;
+
+
