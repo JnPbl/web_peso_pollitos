@@ -4,12 +4,18 @@
   font-family: "Montserrat", sans-serif;
 }
 
+:root{
+  --color-body:rgb(255, 249, 240);
+  --color-button: rgba(75, 192, 192, 1);
+  --color-button-border:rgb(6, 28, 28);
+}
+
 .body{
   
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: rgb(255, 249, 240);
+  background-color: var(--color-body);
 }
 
 .container{
@@ -34,4 +40,7 @@ text-align: center;
   border-radius: 8px;
   cursor: pointer;
   margin-top: 15px; 
+  margin-bottom: 25px;
+  background-color: var(--color-button);
+  border-color:var(--color-button-border);
 }

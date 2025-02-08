@@ -2,6 +2,8 @@ import { useRef, useEffect} from "react";
 import styles from "./MostrarPesos.module.css";
 /* eslint-disable react/prop-types */
 const MostrarPesos = ({ pesos }) => {
+ 
+
   const scrollContainerRef = useRef(null)
 
   useEffect(() => {
@@ -28,6 +30,8 @@ const MostrarPesos = ({ pesos }) => {
         </div>
       </div>
     </div>
+
+    
   );
 };
 

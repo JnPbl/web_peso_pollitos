@@ -2,8 +2,10 @@ import { useState } from "react";
 import styles from "./PesoFormulario.module.css";
 
 /* eslint-disable react/prop-types */
-const PesoForm = ({ agregarPeso }) => {
+const PesoForm = ({ agregarPeso, editarPeso, eliminarPeso, pesos }) => {
   const [peso, setPeso] = useState("");
+  const [indice, setIndice] = useState(""); // Estado para el índice
+  const [nuevoPeso, setNuevoPeso] = useState(""); // Estado para el nuevo peso
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,22 +15,75 @@ const PesoForm = ({ agregarPeso }) => {
     }
   };
 
+  // Función para manejar el evento de editar
+  const handleEditar = (e) => {
+    e.preventDefault();
+    const indiceNum = parseInt(indice);
+    const nuevoPesoNum = parseFloat(nuevoPeso);
+
+    if (!isNaN(indiceNum) && !isNaN(nuevoPesoNum) && indiceNum > 0 && indiceNum <= pesos.length) {
+      editarPeso(indiceNum, nuevoPesoNum); // Llamar a la función que edita el peso
+      alert(`Peso en el índice ${indiceNum} modificado a ${nuevoPesoNum}`);
+    } else {
+      alert("Índice o valor no válido.");
+    }
+  };
+
+  const handleEliminar = (e) => {
+    e.preventDefault();
+    const indiceNum = parseInt(indice);
+
+    if (!isNaN(indiceNum) && indiceNum > 0 && indiceNum <= pesos.length) {
+      eliminarPeso(indiceNum); // Llamar a la función que elimina el peso
+      alert(`Peso en el índice ${indiceNum} eliminado.`);
+    } else {
+      alert("Índice no válido.");
+    }
+  };
+
   return (
-    <div className={styles.div}>
-      <form onSubmit={handleSubmit}>
-        <label className={styles.label}>INGRESE EL PESO: </label>
-        <input
-          className={styles.input}
-          type="number"
-          value={peso}
-          onChange={(e) => setPeso(e.target.value)}
-          //placeholder="Ingresa el peso"
-          required
-        />
-        <button className={styles.button} type="submit">
-          AGREGAR
-        </button>
-      </form>
+    <div className={styles.container}>
+      <div className={styles.div}>
+        <form onSubmit={handleSubmit}>
+          <label className={styles.label}>INGRESE EL PESO: </label>
+          <input
+            className={styles.input}
+            type="number"
+            value={peso}
+            onChange={(e) => setPeso(e.target.value)}
+            //placeholder="Ingresa el peso"
+            required
+          />
+          <button className={styles.button} type="submit">
+            AGREGAR
+          </button>
+        </form>
+      </div>
+      <div>
+        <form >
+          <input
+            type="number"
+            value={indice}
+            onChange={(e) => setIndice(e.target.value)}
+            placeholder="indice"
+            required
+          />
+          <input
+            type="number"
+            value={nuevoPeso}
+            onChange={(e) => setNuevoPeso(e.target.value)}
+            placeholder="peso"
+            required
+          />
+
+          <button className={styles.button} onClick={handleEditar}>
+            EDITAR
+          </button>
+          <button className={styles.button} onClick={handleEliminar}>
+            ELIMINAR
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

@@ -1,10 +1,11 @@
-.div{
+.container{
     width: 100%;
     height: 90px;
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
+    background-color: aqua;
 }
 
 .label {
@@ -27,5 +28,7 @@
   margin-left: 20px;
   border-radius: 8px;
   cursor: pointer;
+  background-color: var(--color-button);
+  border-color:var(--color-button-border);
  
 }
