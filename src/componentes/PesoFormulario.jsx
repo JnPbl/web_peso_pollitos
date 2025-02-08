@@ -23,6 +23,8 @@ const PesoForm = ({ agregarPeso, editarPeso, eliminarPeso, pesos }) => {
 
     if (!isNaN(indiceNum) && !isNaN(nuevoPesoNum) && indiceNum > 0 && indiceNum <= pesos.length) {
       editarPeso(indiceNum, nuevoPesoNum); // Llamar a la función que edita el peso
+      setIndice("")
+      setNuevoPeso("")
       alert(`Peso en el índice ${indiceNum} modificado a ${nuevoPesoNum}`);
     } else {
       alert("Índice o valor no válido.");
@@ -35,6 +37,8 @@ const PesoForm = ({ agregarPeso, editarPeso, eliminarPeso, pesos }) => {
 
     if (!isNaN(indiceNum) && indiceNum > 0 && indiceNum <= pesos.length) {
       eliminarPeso(indiceNum); // Llamar a la función que elimina el peso
+      setIndice("")
+      setNuevoPeso("")
       alert(`Peso en el índice ${indiceNum} eliminado.`);
     } else {
       alert("Índice no válido.");
@@ -43,25 +47,29 @@ const PesoForm = ({ agregarPeso, editarPeso, eliminarPeso, pesos }) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.div}>
+      <div className={styles.peso}>
         <form onSubmit={handleSubmit}>
           <label className={styles.label}>INGRESE EL PESO: </label>
           <input
-            className={styles.input}
+            className={styles.inputPeso}
             type="number"
             value={peso}
             onChange={(e) => setPeso(e.target.value)}
             //placeholder="Ingresa el peso"
             required
           />
-          <button className={styles.button} type="submit">
+          <button className={styles.buttonAgregar} type="submit">
             AGREGAR
           </button>
         </form>
       </div>
-      <div>
+
+      
         <form >
+        <div className={styles.edit}>
+          <div className={styles.containerInput}>
           <input
+          className={styles.inputEdit}
             type="number"
             value={indice}
             onChange={(e) => setIndice(e.target.value)}
@@ -69,21 +77,26 @@ const PesoForm = ({ agregarPeso, editarPeso, eliminarPeso, pesos }) => {
             required
           />
           <input
+          className={styles.inputEdit}
             type="number"
             value={nuevoPeso}
             onChange={(e) => setNuevoPeso(e.target.value)}
             placeholder="peso"
             required
           />
+          </div>
+          <div className={styles.containerButon}>
 
-          <button className={styles.button} onClick={handleEditar}>
+          <button className={styles.buttonEditar} onClick={handleEditar}>
             EDITAR
           </button>
-          <button className={styles.button} onClick={handleEliminar}>
+          <button className={styles.buttonEditar} onClick={handleEliminar}>
             ELIMINAR
           </button>
+          </div>
+          </div>
         </form>
-      </div>
+      
     </div>
   );
 };
