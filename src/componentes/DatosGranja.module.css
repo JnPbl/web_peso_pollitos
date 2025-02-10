@@ -27,4 +27,15 @@
     border-radius: 8px;
     height: 25px;
     width: 220px;
+    outline: none;
+    transition: all 0.3s ease;
+    border: 2px solid black;
+
 }
+
+.input:focus {
+  border-color: var(--color-button); /* Cambia el color del borde cuando se hace foco */
+}
+
+
+

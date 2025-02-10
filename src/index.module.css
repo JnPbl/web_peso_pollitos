@@ -8,6 +8,7 @@
   --color-body:rgb(255, 249, 240);
   --color-button: rgba(75, 192, 192, 1);
   --color-button-border:rgb(6, 28, 28);
+  --color-button-hover:rgb(68, 212, 212)
 }
 
 .body{
@@ -43,4 +44,11 @@ text-align: center;
   margin-bottom: 25px;
   background-color: var(--color-button);
   border-color:var(--color-button-border);
+  transition: all 0.3s ease;
+}
+
+.buton:hover{
+  background-color: var(--color-button-hover);
+  transform: scale(1.03);
+border-color: var(--color-button-hover);
 }

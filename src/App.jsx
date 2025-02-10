@@ -1,12 +1,13 @@
 import { useState, useRef } from "react";
-import PesoForm from "./componentes/PesoFormulario";
-import Estadisticas from "./componentes/Estadisticas";
-import MostrarPesos from "./componentes/MostrarPesos";
+import PesoForm from "./componentes/PesoFormulario.jsx";
+import Estadisticas from "./componentes/Estadisticas.jsx";
+import MostrarPesos from "./componentes/MostrarPesos.jsx";
 import styles from "./index.module.css";
-import Histograma from "./componentes/Histograma";
-import DatosGranja from "./componentes/DatosGranja";
+import Histograma from "./componentes/Histograma.jsx";
+import DatosGranja from "./componentes/DatosGranja.jsx";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
+import Layout from "./layout/Layout.jsx"
 
 function App() {
   const [pesos, setPesos] = useState([]);
@@ -155,6 +156,7 @@ function App() {
   };
 
   return (
+    <Layout>
     <div className={styles.body}>
       <div className={styles.container}>
         <h1 className={styles.titulo}>Ingreso de Pesos de Bebés</h1>
@@ -177,6 +179,7 @@ function App() {
         </button>
       </div>
     </div>
+    </Layout>
   );
 }
 

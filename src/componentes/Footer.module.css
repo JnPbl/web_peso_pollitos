@@ -1,0 +1,25 @@
+
+.footer{
+    background-color: var(--color-button);
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+
+.p{
+    margin-bottom: 10px;
+}
+
+.a{
+    color:black;
+    text-decoration: none;
+    transition: font-weight 0.3s  ease;
+}
+
+.a:hover{
+    font-weight: bold;
+    transform: scale(1.03);
+}

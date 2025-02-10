@@ -27,6 +27,13 @@ justify-content: space-between;
     text-align: center;
     border-radius: 8px;
     margin-bottom: 5px;
+    outline: none;
+    transition: all 0.3s ease;
+    border: 2px solid black;
+}
+
+.inputEdit:focus {
+  border-color: var(--color-button); /* Cambia el color del borde cuando se hace foco */
 }
 
 .containerButon{
@@ -42,6 +49,13 @@ justify-content: space-between;
   cursor: pointer;
   background-color: var(--color-button);
   border-color:var(--color-button-border);
+  transition: all 0.3s ease;
+}
+
+.buttonEditar:hover{
+  background-color: var(--color-button-hover);
+  transform: scale(1.03);
+  border-color: var(--color-button-hover);
 }
 
 .label {
@@ -56,6 +70,14 @@ justify-content: space-between;
     font-size: 25px;
     text-align: center;
     border-radius: 8px;
+    outline: none;
+    transition: all 0.3s ease;
+    border:2px solid black
+}
+
+.inputPeso:focus {
+  border-color: var(--color-button); 
+  /* Cambia el color del borde cuando se hace foco */
 }
 
 .buttonAgregar {
@@ -66,5 +88,11 @@ justify-content: space-between;
   cursor: pointer;
   background-color: var(--color-button);
   border-color:var(--color-button-border);
- 
+  transition: all 0.3s ease;
+}
+
+.buttonAgregar:hover{
+  background-color: var(--color-button-hover);
+  transform: scale(1.03);
+  border-color: var(--color-button-hover);
 }
