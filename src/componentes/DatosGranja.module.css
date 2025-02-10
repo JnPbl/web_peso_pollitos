@@ -25,17 +25,41 @@
     font-size:20px ;
     text-align: center;
     border-radius: 8px;
-    height: 25px;
+    height: 28px;
     width: 220px;
     outline: none;
     transition: all 0.3s ease;
     border: 2px solid black;
-
+    box-sizing: border-box;
 }
 
 .input:focus {
   border-color: var(--color-button); /* Cambia el color del borde cuando se hace foco */
 }
 
+@media (max-width: 500px)  {
 
+  .titulo{
+    font-size: 15px;
+  }
+
+  .contForm{
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+
+  }
+ 
+  .label{
+    font-size: 12px;
+    padding: 2px;
+  }
+
+  .input{
+    font-size:12px ;
+    height: 18px;
+    width: 120px;
+    
+  }
+}
 

@@ -32,3 +32,26 @@
 .ul {
     list-style-type: none;
 }
+
+
+@media (max-width: 500px)  {
+
+  .titulo{
+    font-size: 15px;
+  }
+
+  .grid {
+    padding: 10px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 2px;
+  }
+
+  .element { /* Para ver cada "elemento" en el grid */
+    padding: 2px 3px;
+  }
+
+  .ul{
+    font-size: 10px;
+  }
+}

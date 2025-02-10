@@ -18,3 +18,16 @@
     font-size: 20px;
     margin-bottom: 15px;
 }
+
+@media (max-width: 500px)  {
+
+    .titulo{
+        font-size: 15px;
+    }
+
+    .parametros{
+        font-size: 12px;
+        margin-bottom: 15px;
+    }
+
+}

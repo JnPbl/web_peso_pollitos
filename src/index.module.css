@@ -52,3 +52,14 @@ text-align: center;
   transform: scale(1.03);
 border-color: var(--color-button-hover);
 }
+
+@media (max-width: 500px)  {
+  .titulo{
+    font-size: 20px;
+    margin: 15px;
+  }
+
+  .buton{
+    font-size: 15px;
+  }
+}

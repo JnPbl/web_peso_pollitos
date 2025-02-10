@@ -146,8 +146,10 @@ function App() {
         imgHeight = pageHeight - 80;
       }
       const imgData = canvas.toDataURL("image/png");
-
-      console.log("Canvas capturado:", imgWidth, imgHeight, pageWidth);
+      if (y + imgHeight > pageHeight - 10) {
+        doc.addPage(); // Si la imagen no cabe, agregamos una nueva página
+        y = 20; // Restablecemos la posición 'y' para la nueva página
+      }
 
       doc.addImage(imgData, "PNG", 15, y + 10, imgWidth, imgHeight);
 

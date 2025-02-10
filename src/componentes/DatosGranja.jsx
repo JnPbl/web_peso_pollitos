@@ -67,8 +67,11 @@ const DatosGranja = ({ onDatosChange }) => {
 
       <form>
         <div className={styles.contForm}>
-          <div>
-            <label className={styles.label}>Granja:</label>
+          <div className={styles.d} >
+           
+            <label className={styles.label}>Granja</label>
+
+            
             <select
               className={styles.input}
               name="nombre"
@@ -84,17 +87,19 @@ const DatosGranja = ({ onDatosChange }) => {
             </select>
           </div>
           <div>
-            <label className={styles.label}>Fecha:</label>
+            <label className={styles.label}>Fecha</label>
             <input
               className={styles.input}
-              type="text"
+              type="date"
               name="fecha"
               value={granja.fecha}
               onChange={manejarCambio}
             />
           </div>
-          <div>
-            <label className={styles.label}>Lote:</label>
+          <div >
+           
+            <label className={styles.label}>Lote</label>
+           
             <select
               className={styles.input}
               name="lote"
@@ -112,7 +117,7 @@ const DatosGranja = ({ onDatosChange }) => {
             </select>
           </div>
           <div>
-            <label className={styles.label}>Galpon:</label>
+            <label className={styles.label}>Galpon</label>
             <input
               className={styles.input}
               type="text"
