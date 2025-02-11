@@ -44,14 +44,32 @@
     padding: 10px;
     display: grid;
     grid-template-columns: repeat(8, 1fr);
-    gap: 2px;
+    gap: 8px;
   }
 
   .element { /* Para ver cada "elemento" en el grid */
-    padding: 2px 3px;
+    padding: 0;
   }
 
   .ul{
     font-size: 10px;
   }
+}
+
+@media (min-width:501px)and (max-width:880px) {
+  .grid {
+    padding: 6px;
+    display: grid;
+    grid-template-columns: repeat(8, 1fr);
+    gap: 8px;
+   
+  }
+  .element{
+    padding: 0 ;
+  }
+
+  .ul{
+    font-size: 14px;
+  }
+
 }
