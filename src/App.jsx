@@ -27,6 +27,7 @@ function App() {
   const actualizarDatosGranja = (datos) => {
     setGranja(datos);
   };
+  console.log(granja.fecha)
 
   // Función para agregar el peso al array
   const agregarPeso = (peso) => {
@@ -90,8 +91,10 @@ function App() {
       doc.line(15, 35 + 2, 15 + anchoTexto1, 35 + 2);
 
       doc.setFontSize(15);
+      const [anio, mes, dia] = granja.fecha.split('-')
+      
       doc.text(
-        `Granja: ${granja.nombre}       Fecha: ${granja.fecha}          Lote: ${granja.lote}          Galpon: ${granja.galpon} `,
+        `Granja: ${granja.nombre}      Fecha: ${dia}/${mes}/${anio}      Lote: ${granja.lote}      Galpon: ${granja.galpon} `,
         105,
         45,
         { align: "center" }

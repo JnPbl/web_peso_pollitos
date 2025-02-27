@@ -54,6 +54,7 @@ const DatosGranja = ({ onDatosChange }) => {
 
   const manejarCambio = (e) => {
     const { name, value } = e.target;
+
     setGranja((prevState) => ({
       ...prevState,
       [name]: value, // Actualizamos solo el campo correspondiente
