@@ -173,13 +173,13 @@ function App() {
           pesos={pesos}
         />
         <MostrarPesos pesos={pesos} />
-        <button className={styles.buton} onClick={calcularEstadisticas}>
+        <button className={styles.buton} onClick={calcularEstadisticas} disabled={pesos.length <=2}>
           Calcular Estadísticas
         </button>
 
         <Estadisticas promedio={promedio} desviacion={desviacion} cv={cv} />
         <Histograma pesos={pesos} ref={histogramRef} />
-        <button className={styles.buton} onClick={generarPDF}>
+        <button className={styles.buton} onClick={generarPDF} >
           Generar PDF
         </button>
       </div>

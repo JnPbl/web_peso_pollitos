@@ -9,7 +9,7 @@ const PesoForm = ({ agregarPeso, editarPeso, eliminarPeso, pesos }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (peso) {
+    if (peso>0) {
       agregarPeso(parseFloat(peso));
       setPeso("");
     }
@@ -60,6 +60,8 @@ const PesoForm = ({ agregarPeso, editarPeso, eliminarPeso, pesos }) => {
             type="number"
             value={peso}
             onChange={(e) => setPeso(e.target.value)}
+            min="0"
+            step="any"
             //placeholder="Ingresa el peso"
             required
           />
@@ -78,12 +80,15 @@ const PesoForm = ({ agregarPeso, editarPeso, eliminarPeso, pesos }) => {
               value={indice}
               onChange={(e) => setIndice(e.target.value)}
               placeholder="indice"
+              min="1"
               required
             />
             <input
               className={styles.inputEdit}
               type="number"
               value={nuevoPeso}
+              min="0"
+              step="any"
               onChange={(e) => setNuevoPeso(e.target.value)}
               placeholder="peso"
               required
