@@ -1,11 +1,14 @@
 import { useState } from "react";
 import styles from "./PesoFormulario.module.css";
+import  { forwardRef } from 'react';
 
 /* eslint-disable react/prop-types */
-const PesoForm = ({ agregarPeso, editarPeso, eliminarPeso, pesos }) => {
+const PesoForm = forwardRef(({ agregarPeso, editarPeso, eliminarPeso, pesos },ref) => {
   const [peso, setPeso] = useState("");
   const [indice, setIndice] = useState(""); // Estado para el índice
   const [nuevoPeso, setNuevoPeso] = useState(""); // Estado para el nuevo peso
+
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,6 +59,7 @@ const PesoForm = ({ agregarPeso, editarPeso, eliminarPeso, pesos }) => {
         <form onSubmit={handleSubmit}>
           <label className={styles.labelPeso}>INGRESE EL PESO: </label>
           <input
+            ref={ref}
             className={styles.inputPeso}
             type="number"
             value={peso}
@@ -106,6 +110,8 @@ const PesoForm = ({ agregarPeso, editarPeso, eliminarPeso, pesos }) => {
       </form>
     </div>
   );
-};
+});
+
+PesoForm.displayName = "PesoForm"
 
 export default PesoForm;

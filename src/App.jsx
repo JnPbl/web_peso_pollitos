@@ -22,6 +22,13 @@ function App() {
   });
 
   const histogramRef = useRef();
+  const pesoRef = useRef(null);
+  const galponRef = useRef(null);
+
+
+  const moverFocus = ()=> {
+    pesoRef.current.focus();
+  }
 
   // Función para actualizar los datos de la granja
   const actualizarDatosGranja = (datos) => {
@@ -165,12 +172,13 @@ function App() {
     <div className={styles.body}>
       <div className={styles.container}>
         <h1 className={styles.titulo}>Ingreso de Pesos de Bebés</h1>
-        <DatosGranja onDatosChange={actualizarDatosGranja} />
+        <DatosGranja onDatosChange={actualizarDatosGranja}  onEnter ={moverFocus} ref={galponRef} />
         <PesoForm
           agregarPeso={agregarPeso}
           editarPeso={editarPeso}
           eliminarPeso={eliminarPeso}
           pesos={pesos}
+          ref = {pesoRef}
         />
         <MostrarPesos pesos={pesos} />
         <button className={styles.buton} onClick={calcularEstadisticas} disabled={pesos.length <=2}>

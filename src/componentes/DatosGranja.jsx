@@ -1,7 +1,8 @@
 import { useState } from "react";
 import styles from "./DatosGranja.module.css";
+import  { forwardRef } from 'react';
 /* eslint-disable react/prop-types */
-const DatosGranja = ({ onDatosChange }) => {
+const DatosGranja = forwardRef(({ onDatosChange, onEnter },ref) => {
   const [granja, setGranja] = useState({
     nombre: "",
     fecha: "",
@@ -52,6 +53,16 @@ const DatosGranja = ({ onDatosChange }) => {
     "Don Roberto",
   ];
 
+  const manejarEnter = (event) => {
+    if (event.key === 'Enter') {
+      onEnter(); // Llamar la función pasada por el padre
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Esto evita que el formulario se envíe y recargue la página
+  };
+
   const manejarCambio = (e) => {
     const { name, value } = e.target;
 
@@ -66,7 +77,7 @@ const DatosGranja = ({ onDatosChange }) => {
     <div className={styles.container}>
       <h2 className={styles.titulo}>Datos de la granja:</h2>
 
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className={styles.contForm}>
           <div className={styles.contLavelInput} >
             <label className={styles.label}>Granja</label>
@@ -124,12 +135,15 @@ const DatosGranja = ({ onDatosChange }) => {
               name="galpon"
               value={granja.galpon}
               onChange={manejarCambio}
+              ref={ref}
+              onKeyDown={manejarEnter}
             />
           </div>
         </div>
       </form>
     </div>
   );
-};
+});
 
+DatosGranja.displayName = "DatosGranja"
 export default DatosGranja;
