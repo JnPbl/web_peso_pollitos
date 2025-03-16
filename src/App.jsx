@@ -7,7 +7,8 @@ import Histograma from "./componentes/Histograma.jsx";
 import DatosGranja from "./componentes/DatosGranja.jsx";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
-import Layout from "./layout/Layout.jsx"
+import Layout from "./layout/Layout.jsx";
+
 
 function App() {
   const [pesos, setPesos] = useState([]);
@@ -20,6 +21,21 @@ function App() {
     lote: "",
     galpon: "",
   });
+  /*
+  const [granjas, setGranjas] = useState([]);
+
+  const agregarNuevaGranja = () =>{
+    const nuevaGranja = {
+      granja: granja,
+      pesos: pesos,
+      promedio: promedio,
+      desviacion: desviacion,
+      cv:cv
+    }
+
+    setGranjas([...granjas, nuevaGranja]);
+
+  }*/
 
   const histogramRef = useRef();
   const pesoRef = useRef(null);
@@ -191,7 +207,17 @@ function App() {
           Generar PDF
         </button>
       </div>
+      
     </div>
+
+    <div className={styles.contButton}>
+    <div className={styles.contaButonAgregar} >
+      <img className = {styles.imagen1} src="/agregar.png" alt="ic_agregar" />
+    </div>
+    <div className={styles.p}><p >Agregar Granja</p></div>
+    
+    </div>
+    
     </Layout>
   );
 }

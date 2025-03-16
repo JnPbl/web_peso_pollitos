@@ -54,6 +54,51 @@ text-align: center;
 border-color: var(--color-button-hover);
 }
 
+.contButton{
+  width: 120px;
+  height: 120px;
+  position: fixed;
+  bottom: 100px;
+  right: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  transition: 0.2s transform;
+  cursor: pointer;
+}
+
+.contaButonAgregar {
+  width: 70px;                
+  height: 70px;               
+  border-radius: 50%;         /* Hace que el contenedor tenga bordes redondeados, formando un círculo */
+  overflow: hidden;           /* Oculta cualquier parte de la imagen que se salga del círculo */
+  display: flex;              /* Usamos flexbox para centrar la imagen */
+  justify-content: center;    /* Centra la imagen horizontalmente */
+  align-items: center;        /* Centra la imagen verticalmente */
+  background-color: var(--color-button); 
+  
+}
+
+.contButton:hover{
+  transform: scale(1.08);
+}
+
+.imagen1{
+  width: 100%;   /* La imagen ocupa todo el ancho del contenedor */
+  height: 100%;  /* La imagen ocupa todo el alto del contenedor */
+  object-fit: cover; 
+  
+  /* Asegura que la imagen se recorte para llenar el contenedor sin distorsionarse */
+}
+
+.p{
+  padding-top: 10px;
+ font-weight: bold;
+}
+
+
 @media (max-width: 500px)  {
   .titulo{
     font-size: 20px;
@@ -63,4 +108,70 @@ border-color: var(--color-button-hover);
   .buton{
     font-size: 15px;
   }
+
+  
+.contButton{
+  width: 35px;
+  height: 50px;
+  bottom: 100px;
+  right: 20px;
+}
+
+.contaButonAgregar {
+  width: 30px;                
+  height: 30px;               
+ 
+}
+
+
+.p{
+  padding-top: 5px;
+ font-size:8px;
+}
+
+
+
+}
+
+@media (min-width:501px)and (max-width:880px) {
+   
+.contButton{
+  width: 60px;
+  height: 80px;
+  bottom: 100px;
+  right: 20px;
+}
+
+.contaButonAgregar {
+  width: 40px;                
+  height: 40px;               
+ 
+}
+
+.p{
+  padding-top: 5px;
+ font-size: 12px;
+}
+
+}
+
+@media (min-width:881px)and (max-width:1440px) {
+  .contButton{
+    width: 80px;
+    height: 120px;
+    bottom: 100px;
+    right: 30px;
+  }
+  
+  .contaButonAgregar {
+    width: 55px;                
+    height: 55px;               
+   
+  }
+  
+  .p{
+    padding-top: 5px;
+   font-size: 20px;
+  }
+
 }
