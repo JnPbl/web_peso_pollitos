@@ -4,13 +4,14 @@ import  { forwardRef } from 'react';
 /* eslint-disable react/prop-types */
 const DatosGranja = forwardRef(({ onDatosChange, onEnter },ref) => {
   const [granja, setGranja] = useState({
-    nombre: "",
+    nombre: "s/nombre",
     fecha: "",
-    lote: "",
+    lote: "s/nombre",
     galpon: "",
   });
 
   const granjas = [
+    "sin nombre",
     "Badia",
     "Basilico",
     "Blanco",
@@ -89,7 +90,6 @@ const DatosGranja = forwardRef(({ onDatosChange, onEnter },ref) => {
               value={granja.nombre}
               onChange={manejarCambio}
             >
-              <option value="sin nombre">sin nombre</option>
               {granjas.map((granjaOption, index) => (
                 <option key={index} value={granjaOption}>
                   {granjaOption}
