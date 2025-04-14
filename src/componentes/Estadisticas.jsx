@@ -1,7 +1,7 @@
 
 import styles from "./Estadisticas.module.css";
  /* eslint-disable react/prop-types */
-const Estadisticas = ({ promedio, desviacion, cv}) => {
+const Estadisticas = ({ promedio, desviacion, cv, uniformidad}) => {
   return (
     <div className={styles.container}>
       {promedio !== null && (
@@ -11,6 +11,7 @@ const Estadisticas = ({ promedio, desviacion, cv}) => {
           <p>Promedio: {promedio} gr.</p>
           <p>Desviación Estándar: {desviacion}</p>
           <p>Coeficiente de Variación (CV): {cv}%</p>
+          <p>Uniformidad: {uniformidad}%</p>
           </div>
         </div>
       )}

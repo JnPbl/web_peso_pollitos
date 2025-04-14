@@ -11,10 +11,14 @@ import Layout from "./layout/Layout.jsx";
 
 
 function App() {
+  const [bloqueado, setBloqueado] = useState(false);
   const [pesos, setPesos] = useState([]);
+  const [pesosCaja, setPesosCaja] = useState([]);
+  const [modo, setModo] = useState("individual");
   const [promedio, setPromedio] = useState(null);
   const [desviacion, setDesviacion] = useState(null);
   const [cv, setCV] = useState(null);
+  const [uniformidad,setUniformidad] = useState(null);
   const [granja, setGranja] = useState({
     nombre: "s/nombre",
     fecha: "",
@@ -51,22 +55,28 @@ useEffect(() => {
 */
 
 useEffect(() => {
-  if (promedio && desviacion && cv && imagen.image != "" ) {
+  window.scrollTo(0, 0);
+}, []);
+
+useEffect(() => {
+  if (promedio && desviacion && cv&&uniformidad && imagen.image != "" ) {
     const nuevaGranja = {
       granja: granja,
-      pesos: pesos,
+      pesos: modo === "individual" ? pesos : pesosCaja,
       promedio: promedio,
       desviacion: desviacion,
       cv: cv,
+      uniformidad:uniformidad,
       grafico:imagen
     };
 
     setGranjas((prevGranjas) => [...prevGranjas, nuevaGranja]);
   }
-}, [promedio, desviacion, cv, granja, pesos,imagen]); // Este useEffect depende de todos los valores relevantes
+}, [promedio, desviacion, cv,uniformidad, granja,pesos, pesosCaja,imagen,modo]); // Este useEffect depende de todos los valores relevantes
 
 
 const agregarNuevaGranja = ()=>{
+  setBloqueado(false);
   setGranja({
     nombre: "",
     fecha: "",
@@ -74,23 +84,29 @@ const agregarNuevaGranja = ()=>{
     galpon: "",
   });
   setPesos([]);
+  setPesosCaja([]);
   setPromedio(null);
   setDesviacion(null);
   setCV(null);
+  setUniformidad(null);
   setImagen({
     width: 0,
     height: 0,
     image: ""
   })
-}
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+};
   const histogramRef = useRef();
   const pesoRef = useRef(null);
   const galponRef = useRef(null);
+  const pdfButonRef = useRef(null);
 
 
   const moverFocus = ()=> {
     pesoRef.current.focus();
   }
+
+
 
   // Función para actualizar los datos de la granja
   const actualizarDatosGranja = (datos) => {
@@ -101,6 +117,10 @@ const agregarNuevaGranja = ()=>{
   const agregarPeso = (peso) => {
     setPesos([...pesos, peso]);
   };
+
+  const agregarPesoCaja = (peso) => {
+    setPesosCaja(prev => [...prev,...peso]);
+  }
 
   // Función para editar un peso
   const editarPeso = (index, nuevoPeso) => {
@@ -115,28 +135,48 @@ const agregarNuevaGranja = ()=>{
     setPesos(nuevosPesos);
   };
 
-  // Calcular promedio, desviación y CV
+  // Calcular promedio, desviación , uniformidad y CV
   const calcularEstadisticas = () => {
-    if (pesos.length > 0) {
-      const suma = pesos.reduce((acumulador, valor) => acumulador + valor, 0);
-      const prom = (suma / pesos.length).toFixed(2);
+    const valores = modo === "individual" ? pesos : pesosCaja;
+    setBloqueado(true);
+    if (valores.length > 0) {
+      const suma = valores.reduce((acumulador, valor) => acumulador + valor, 0);
+      const prom = (suma / valores.length);
 
       const varianza =
-        pesos.reduce(
+      valores.reduce(
           (acumulador, valor) => acumulador + Math.pow(valor - prom, 2),
           0
         ) /
-        (pesos.length - 1);
-      const desviacion = Math.sqrt(varianza).toFixed(2);
+        (valores.length - 1);
+      const desviacion = Math.sqrt(varianza);
 
-      const coeficienteVariacion = ((desviacion / prom) * 100).toFixed(2);
+      const coeficienteVariacion = ((desviacion / prom) * 100);
 
-      setPromedio(prom);
-      setDesviacion(desviacion);
-      setCV(coeficienteVariacion);
+      const rangoMin = prom * 0.90;
+      const rangoMax = prom * 1.10;
+      let acum = 0;
+      valores.forEach((p)=>{
+        if(p >= rangoMin && p <= rangoMax){
+          acum = acum +1;
+        }
+      })
       
+      const uniformida = (acum/valores.length)*100;
+      
+      
+      
+      setPromedio(prom.toFixed(2));
+      setDesviacion(desviacion.toFixed(2));
+      setCV(coeficienteVariacion.toFixed(2));
+      setUniformidad(uniformida.toFixed(2));
     }
     guardarImagen();
+
+    setTimeout(() => {
+    if (pdfButonRef.current) {
+      pdfButonRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    }},100)
 
     
   };
@@ -219,7 +259,7 @@ const agregarNuevaGranja = ()=>{
       doc.text(`Promedio: ${granjaData.promedio} gr `, 20, (y += 10));
       doc.text(`Desviacion Estandar: ${granjaData.desviacion} `, 20, (y += 8));
       doc.text(`Coeficiente de Variacion: ${granjaData.cv}% `, 20, (y += 8));
-      
+      doc.text(`Uniformidad: ${granjaData.uniformidad}% `, 20, (y += 8));
 
       //------Captura del grafico----------------
       
@@ -245,7 +285,17 @@ const agregarNuevaGranja = ()=>{
 
     
     });
-      doc.save(`${granja.nombre}_${granja.fecha}.pdf`);
+
+    const fechaActual = new Date();
+const dia = fechaActual.getDate().toString().padStart(2, "0");
+const mes = (fechaActual.getMonth() + 1).toString().padStart(2, "0");
+const anio = fechaActual.getFullYear();
+
+const fechaFormateada = `${dia}-${mes}-${anio}`;
+
+      doc.save(`${granja.nombre || "Granja"}_${granja.fecha || fechaFormateada}.pdf`);
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
    
   };
 
@@ -260,16 +310,21 @@ const agregarNuevaGranja = ()=>{
           editarPeso={editarPeso}
           eliminarPeso={eliminarPeso}
           pesos={pesos}
+          agregarPesoCaja = {agregarPesoCaja}
+          modo = {modo}
+          setModo = {setModo}
           ref = {pesoRef}
+          bloqueado= {bloqueado}
         />
         <MostrarPesos pesos={pesos} />
-        <button className={styles.buton} onClick={calcularEstadisticas} disabled={pesos.length <=2}>
+
+        <button className={styles.buton} onClick={calcularEstadisticas} disabled={pesos.length <=2 || bloqueado}>
           Calcular Estadísticas
         </button>
 
-        <Estadisticas promedio={promedio} desviacion={desviacion} cv={cv} />
-        <Histograma pesos={pesos} ref={histogramRef} />
-        <button className={styles.buton} onClick={generarPDF} >
+        <Estadisticas promedio={promedio} desviacion={desviacion} cv={cv} uniformidad ={uniformidad} />
+        <Histograma pesos={modo === "individual" ? pesos : pesosCaja} ref={histogramRef} />
+        <button className={styles.buton} onClick={generarPDF} disabled={!bloqueado} ref={pdfButonRef} >
           Generar PDF
         </button>
       </div>
