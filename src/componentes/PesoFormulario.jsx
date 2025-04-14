@@ -108,8 +108,30 @@ const PesoForm = forwardRef(
             Peso en CAJA
           </label>
         </div>
+        
 
         <div className={styles.container}>
+
+        {modo !== "individual" && (
+            <div className={styles.containerCaja}>
+              <div className={styles.parrafo}>
+                <p>Ingrese BB x Caja</p>
+              </div>
+              <div className={styles.inputBotn}>
+                <input
+                  className={styles.inputEdit}
+                  type="number"
+                  ref={cantidadRef}
+                  placeholder="cantidad"
+                  min="1"
+                  required
+                />
+                <button className={styles.buttonEditar} disabled ={bloqueado} type="button" onClick={handleAgregarCantidadCaja}>AGREGAR</button>
+              </div>
+            </div>
+          )}
+
+
           <div>
             <form onSubmit={handleSubmit} >
               <label className={styles.labelPeso}>INGRESE EL PESO: </label>
@@ -130,24 +152,7 @@ const PesoForm = forwardRef(
             </form>
           </div>
 
-          {modo !== "individual" && (
-            <div className={styles.containerCaja}>
-              <div className={styles.parrafo}>
-                <p>Ingrese BB x Caja</p>
-              </div>
-              <div className={styles.inputBotn}>
-                <input
-                  className={styles.inputEdit}
-                  type="number"
-                  ref={cantidadRef}
-                  placeholder="cantidad"
-                  min="1"
-                  required
-                />
-                <button className={styles.buttonEditar} disabled ={bloqueado} type="button" onClick={handleAgregarCantidadCaja}>AGREGAR</button>
-              </div>
-            </div>
-          )}
+         
 
           <form>
             <div className={styles.edit}>
