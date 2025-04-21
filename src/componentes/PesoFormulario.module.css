@@ -2,6 +2,7 @@
   width: 100%;
   height: auto;
   margin-bottom: 10px; 
+  margin-bottom: 30px;
   
 }
 
@@ -12,6 +13,8 @@
   justify-content: space-evenly;
   margin: auto;
   width: 50%;
+  margin-bottom:40px;
+  margin-top: 30px;
 }
 
 .pesoOpcionesInput{
@@ -41,6 +44,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  
 }
 
 .parrafo{
@@ -160,7 +164,7 @@
   .pesoOpciones{
     font-size: 15px;
     width: 100%;
-    margin-bottom: 10px;
+  
   }
 
   .pesoOpcionesInput{
@@ -255,8 +259,7 @@
   .pesoOpciones{
     font-size: 18px;
     width: 100%;
-    margin-bottom: 10px;
-  }
+     }
 
   .pesoOpcionesInput{
     margin-right: 10px;
@@ -295,12 +298,12 @@
 
   .labelPeso {
     font-size: 18px;
-    margin-right: 40px;
+    margin-right: 45px;
   }
 
   .inputPeso {
     height: 30px;
-    width: 35px;
+    width: 40px;
     font-size: 18px;
   }
 
@@ -346,7 +349,6 @@
   .pesoOpciones{
     font-size: 18px;
     width: 100%;
-    margin-bottom: 10px;
   }
 
   .pesoOpcionesInput{
@@ -386,12 +388,12 @@
   
   .labelPeso {
     font-size: 18px;
-    margin-right: 40px;
+    margin-right: 45px;
   }
 
   .inputPeso {
     height: 30px;
-    width: 35px;
+    width: 40px;
     font-size: 18px;
   }
 
