@@ -125,6 +125,7 @@ useEffect(() => {
 
   const agregarPesoCaja = (peso) => {
     setPesosCaja((prev) => [...prev, ...peso]);
+    //setPesosCaja([...pesosCaja,peso]);
   };
 
   // Función para editar un peso
@@ -132,12 +133,14 @@ useEffect(() => {
     const nuevosPesos = [...pesos];
     nuevosPesos[index - 1] = nuevoPeso;
     setPesos(nuevosPesos);
+    
   };
 
   // Función para eliminar un peso
   const eliminarPeso = (index) => {
     const nuevosPesos = pesos.filter((_, i) => i !== index - 1);
     setPesos(nuevosPesos);
+    
   };
 
   // Calcular promedio, desviación , uniformidad y CV
@@ -161,6 +164,7 @@ useEffect(() => {
       const rangoMin = prom * 0.9;
       const rangoMax = prom * 1.1;
       let acum = 0;
+      console.log(valores)
       valores.forEach((p) => {
         if (p >= rangoMin && p <= rangoMax) {
           acum = acum + 1;
@@ -168,6 +172,7 @@ useEffect(() => {
       });
 
       const uniformida = (acum / valores.length) * 100;
+      console.log(uniformida,acum,valores.length)
 
       setPromedio(prom.toFixed(2));
       setDesviacion(desviacion.toFixed(2));

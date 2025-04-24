@@ -38,11 +38,12 @@ const PesoForm = forwardRef(
           agregarPeso(pesoTotal);
           setPeso("");
           const pesoIndividual = parseFloat(
-            (pesoTotal / cantidadCaja).toFixed(2)
+            (pesoTotal / cantidadCaja).toFixed(1)
           );
+         // agregarPesoCaja(pesoIndividual);
           const nuevosPesos = Array(cantidadCaja).fill(pesoIndividual);
           agregarPesoCaja(nuevosPesos);
-          //nuevosPesos.forEach(p => agregarPesoCaja(p));
+         // nuevosPesos.forEach(p => agregarPesoCaja(p));
         }
       }
     };

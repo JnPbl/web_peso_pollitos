@@ -12,11 +12,30 @@ const Histograma =React.forwardRef( ({ pesos },ref) => {
   const frecuencias = useMemo(() => {
     const conteo = {};
     pesos.forEach((peso) => {
-      conteo[peso] = conteo[peso] ? conteo[peso] + 1 : 1;
+      conteo[peso] = conteo[peso] ? conteo[peso] + 1: 1;
     });
     return conteo;
   }, [pesos]);
 
+
+  const labelsOrdenadas = Object.keys(frecuencias)
+  .map(Number)
+  .sort((a, b) => a - b); // orden numérico ascendente
+
+const data = {
+  labels: labelsOrdenadas,
+  datasets: [
+    {
+      label: 'Pesos de Bebé',
+      data: labelsOrdenadas.map((label) => frecuencias[label] || 0),
+      backgroundColor: 'rgba(75, 192, 192, 1)',
+      borderColor: 'rgb(6, 28, 28)',
+      borderWidth: 1.5,
+    },
+  ],
+};
+
+/*
 
   const data = {
     labels: Object.keys(frecuencias), // Etiquetas de cada entrada
@@ -30,7 +49,7 @@ const Histograma =React.forwardRef( ({ pesos },ref) => {
       },
     ],
   };
-
+*/
   const options = {
     responsive: true,
     maintainAspectRatio: false,  // Asegura que el gráfico sea responsivo
