@@ -180,7 +180,7 @@ const PesoForm = forwardRef(
                   type="number"
                   value={indice}
                   onChange={(e) => setIndice(e.target.value)}
-                  placeholder="indice"
+                  placeholder="posición"
                   min="1"
                   required
                 />

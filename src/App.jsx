@@ -164,7 +164,7 @@ useEffect(() => {
       const rangoMin = prom * 0.9;
       const rangoMax = prom * 1.1;
       let acum = 0;
-      console.log(valores)
+      
       valores.forEach((p) => {
         if (p >= rangoMin && p <= rangoMax) {
           acum = acum + 1;
@@ -172,7 +172,7 @@ useEffect(() => {
       });
 
       const uniformida = (acum / valores.length) * 100;
-      console.log(uniformida,acum,valores.length)
+  
 
       setPromedio(prom.toFixed(2));
       setDesviacion(desviacion.toFixed(2));
@@ -211,64 +211,72 @@ useEffect(() => {
       if (index > 0) {
         doc.addPage();
       }
+
+      let posicionY = 35;
+      let posicionX = 15;
       //---titulo------
       doc.setFontSize(30);
       doc.text("Ingreso de Pesos de Bebés", 105, 20, { align: "center" });
 
       //----Datos granja--------
       doc.setFontSize(20);
-      doc.text("Datos de la granja:", 15, 35);
+      doc.text("Datos de la granja:", posicionX, posicionY);
       const anchoTexto1 = doc.getTextWidth("Datos de la granja:");
       doc.setLineWidth(0.5);
-      doc.line(15, 35 + 2, 15 + anchoTexto1, 35 + 2);
+      doc.line(posicionX, posicionY + 2, posicionX + anchoTexto1, posicionY + 2);
 
       doc.setFontSize(15);
 
       const [anio, mes, dia] = granjaData.granja.fecha.split("-");
 
+      posicionY += 10;
       doc.text(
         `Granja: ${granjaData.granja.nombre}      Fecha: ${dia}/${mes}/${anio}      Lote: ${granjaData.granja.lote}      Galpon: ${granjaData.granja.galpon} `,
         105,
-        45,
+        posicionY,
         { align: "center" }
       );
 
       //------pesos--------------
+      posicionY += 10;
       doc.setFontSize(20);
-      doc.text("Pesos Ingresados:", 15, 55);
+      doc.text("Pesos Ingresados:", posicionX, posicionY);
       const anchoTexto2 = doc.getTextWidth("Pesos Ingresados:");
       doc.setLineWidth(0.5);
-      doc.line(15, 55 + 2, 15 + anchoTexto2, 55 + 2);
+      doc.line(posicionX, 55 + 2, posicionX + anchoTexto2, posicionY + 2);
 
       doc.setFontSize(10);
 
-      let x = 15;
-      let y = 65;
+      posicionY += 10;
       const spaceBetween = 10;
       const maxPerLine = 18;
 
       granjaData.pesos.forEach((dato, index) => {
         if (index > 0 && index % maxPerLine === 0) {
-          y += 5; // Bajamos la posición vertical
-          x = 15;
+          posicionY += 5; // Bajamos la posición vertical
         }
-        doc.text(`${dato}`, x, y);
+        doc.text(`${dato}`, posicionX, posicionY);
 
-        x += spaceBetween;
+        posicionX += spaceBetween;
       });
       //-----Estadisticas--------------
-      y += 10;
+      posicionY += 10;
+      posicionX = 15;
       doc.setFontSize(20);
-      doc.text("Estadisticas:", 15, y);
+      doc.text("Estadisticas:", posicionX, posicionY);
       const anchoTexto3 = doc.getTextWidth("Estadisticas:");
       doc.setLineWidth(0.5);
-      doc.line(15, y + 2, 15 + anchoTexto3, y + 2);
+      doc.line(posicionX, posicionY + 2, posicionX + anchoTexto3, posicionY + 2);
 
+      posicionX += 5;
       doc.setFontSize(15);
-      doc.text(`Promedio: ${granjaData.promedio} gr `, 20, (y += 10));
-      doc.text(`Desviacion Estandar: ${granjaData.desviacion} `, 20, (y += 8));
-      doc.text(`Coeficiente de Variacion: ${granjaData.cv}% `, 20, (y += 8));
-      doc.text(`Uniformidad: ${granjaData.uniformidad}% `, 20, (y += 8));
+      const totalBB = modo === "individual" ? pesos.length : pesosCaja.length;
+
+      doc.text(`Total de bb pesados: ${totalBB} bb `, posicionX, (posicionY += 10));
+      doc.text(`Promedio: ${granjaData.promedio} gr `, posicionX, (posicionY += 8));
+      doc.text(`Desviacion Estandar: ${granjaData.desviacion} `, posicionX, (posicionY += 8));
+      doc.text(`Coeficiente de Variacion: ${granjaData.cv}% `, posicionX, (posicionY += 8));
+      doc.text(`Uniformidad: ${granjaData.uniformidad}% `, posicionX, (posicionY += 8));
 
       //------Captura del grafico----------------
 
@@ -285,16 +293,16 @@ useEffect(() => {
         imgHeight = pageHeight - 80;
       }
 
-      if (y + imgHeight > pageHeight - 10) {
+      if (posicionY + imgHeight > pageHeight - 10) {
         doc.addPage(); // Si la imagen no cabe, agregamos una nueva página
-        y = 20; // Restablecemos la posición 'y' para la nueva página
+        posicionY = 20; // Restablecemos la posición 'y' para la nueva página
       }
 
       doc.addImage(
         granjaData.grafico.image,
         "PNG",
         15,
-        y + 10,
+        posicionY + 10,
         imgWidth,
         imgHeight
       );
@@ -307,8 +315,17 @@ useEffect(() => {
 
     const fechaFormateada = `${dia}-${mes}-${anio}`;
 
+    let fechaGranja = fechaFormateada;
+
+    if(granja?.fecha && granja.fecha.includes("-")){
+      const [anio2, mes2, dia2] = granja.fecha.split("-");
+      fechaGranja = `${dia2}-${mes2}-${anio2}`
+
+    }
+
+
     doc.save(
-      `${granja.nombre || "Granja"}_${granja.fecha || fechaFormateada}.pdf`
+      `${granja.nombre || "Granja"}_${fechaGranja}.pdf`
     );
 
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -346,6 +363,7 @@ useEffect(() => {
           </button>
 
           <Estadisticas
+            cantidadPesos = {modo === "individual" ? pesos.length : pesosCaja.length}
             promedio={promedio}
             desviacion={desviacion}
             cv={cv}
