@@ -209,6 +209,23 @@ useEffect(() => {
 
   const generarPDF = () => {
     const doc = new jsPDF();
+
+     const fechaActual = new Date();
+    const dia = fechaActual.getDate().toString().padStart(2, "0");
+    const mes = (fechaActual.getMonth() + 1).toString().padStart(2, "0");
+    const anio = fechaActual.getFullYear();
+
+    const fechaFormateada = `${dia}-${mes}-${anio}`;
+
+    let fechaGranja = fechaFormateada;
+
+    if(granja?.fecha && granja.fecha.includes("-")){
+      const [anio2, mes2, dia2] = granja.fecha.split("-");
+      fechaGranja = `${dia2}-${mes2}-${anio2}`
+
+    }
+
+
     granjas.forEach((granjaData, index) => {
       if (index > 0) {
         doc.addPage();
@@ -218,55 +235,66 @@ useEffect(() => {
       let posicionX = 15;
       //---titulo------
       doc.setFontSize(30);
-      doc.text("Ingreso de Pesos de Bebés", 105, 20, { align: "center" });
+      doc.text("PESOS DE BEBES", 105, 20, { align: "center" });
 
       //----Datos granja--------
       doc.setFontSize(20);
-      doc.text("Datos de la granja:", posicionX, posicionY);
-      const anchoTexto1 = doc.getTextWidth("Datos de la granja:");
+      doc.text("DATOS DELA GRANJA:", posicionX, posicionY);
+      const anchoTexto1 = doc.getTextWidth("DATOS DELA GRANJA:");
       doc.setLineWidth(0.5);
       doc.line(posicionX, posicionY + 2, posicionX + anchoTexto1, posicionY + 2);
 
       doc.setFontSize(15);
 
-      const [anio, mes, dia] = granjaData.granja.fecha.split("-");
+      //const [anio, mes, dia] = granjaData.granja.fecha.split("-");
 
-      posicionY += 10;
-      doc.text(
-        `Granja: ${granjaData.granja.nombre}      Fecha: ${dia}/${mes}/${anio}      Lote: ${granjaData.granja.lote}      Galpon: ${granjaData.granja.galpon}   Edad: ${granjaData.granja.edad} `,
-        105,
-        posicionY,
-        { align: "center" }
-      );
+      posicionY += 15;
+      
+      doc.text(`Granja:`,posicionX+5,posicionY);
+      doc.text(`${granjaData.granja.nombre}`,105,posicionY);
+      posicionY += 8;
+      doc.text(`Fecha:`,posicionX+5,posicionY);
+      doc.text(`${fechaGranja}`,105,posicionY);
+      posicionY += 8;
+      doc.text(`Lote:`, posicionX+5,posicionY);
+      doc.text(`${granjaData.granja.lote}`, 105,posicionY);
+      posicionY += 8;
+      doc.text(`Galpon:`, posicionX+5,posicionY);
+      doc.text(`${granjaData.granja.galpon}`, 105,posicionY);
+      posicionY += 8;
+      doc.text(`Edad:` , posicionX+5,posicionY); 
+      doc.text(`${granjaData.granja.edad}` , 105,posicionY);   
 
       //------pesos--------------
-      posicionY += 10;
+      posicionY += 15;
+      
       doc.setFontSize(20);
-      doc.text("Pesos Ingresados:", posicionX, posicionY);
-      const anchoTexto2 = doc.getTextWidth("Pesos Ingresados:");
+      doc.text("PESOS INGRESADOS:", posicionX, posicionY);
+      const anchoTexto2 = doc.getTextWidth("PESOS INGRESADOS:");
       doc.setLineWidth(0.5);
-      doc.line(posicionX, 55 + 2, posicionX + anchoTexto2, posicionY + 2);
+      doc.line(posicionX, posicionY + 2, posicionX + anchoTexto2, posicionY + 2);
 
       doc.setFontSize(10);
 
-      posicionY += 10;
+      posicionY += 15;
       const spaceBetween = 10;
       const maxPerLine = 18;
 
       granjaData.pesos.forEach((dato, index) => {
         if (index > 0 && index % maxPerLine === 0) {
           posicionY += 5; // Bajamos la posición vertical
+          posicionX = 15;
         }
         doc.text(`${dato}`, posicionX, posicionY);
 
         posicionX += spaceBetween;
       });
       //-----Estadisticas--------------
-      posicionY += 10;
+      posicionY += 15;
       posicionX = 15;
       doc.setFontSize(20);
-      doc.text("Estadisticas:", posicionX, posicionY);
-      const anchoTexto3 = doc.getTextWidth("Estadisticas:");
+      doc.text("ESTADISTICAS:", posicionX, posicionY);
+      const anchoTexto3 = doc.getTextWidth("ESTADISTICAS:");
       doc.setLineWidth(0.5);
       doc.line(posicionX, posicionY + 2, posicionX + anchoTexto3, posicionY + 2);
 
@@ -274,11 +302,16 @@ useEffect(() => {
       doc.setFontSize(15);
       const totalBB = modo === "individual" ? pesos.length : pesosCaja.length;
 
-      doc.text(`Total de bb pesados: ${totalBB} bb `, posicionX, (posicionY += 10));
-      doc.text(`Promedio: ${granjaData.promedio} gr `, posicionX, (posicionY += 8));
-      doc.text(`Desviacion Estandar: ${granjaData.desviacion} `, posicionX, (posicionY += 8));
-      doc.text(`Coeficiente de Variacion: ${granjaData.cv}% `, posicionX, (posicionY += 8));
-      doc.text(`Uniformidad: ${granjaData.uniformidad}% `, posicionX, (posicionY += 8));
+      doc.text(`Total de bb pesados:`, posicionX, (posicionY += 10));
+      doc.text(`${totalBB}`, 105, posicionY );
+      doc.text(`Promedio:`, posicionX, (posicionY += 8));
+      doc.text(`${granjaData.promedio} gr `, 105, posicionY );
+      doc.text(`Desviacion Estandar:`, posicionX, (posicionY += 8));
+      doc.text(`${granjaData.desviacion} `, 105, posicionY);
+      doc.text(`Coeficiente de Variacion:`, posicionX, (posicionY += 8));
+      doc.text(`${granjaData.cv}% `, 105, posicionY);
+      doc.text(`Uniformidad:`, posicionX, (posicionY += 8));
+      doc.text(`${granjaData.uniformidad}% `, 105, posicionY );
 
       //------Captura del grafico----------------
 
@@ -310,20 +343,7 @@ useEffect(() => {
       );
     });
 
-    const fechaActual = new Date();
-    const dia = fechaActual.getDate().toString().padStart(2, "0");
-    const mes = (fechaActual.getMonth() + 1).toString().padStart(2, "0");
-    const anio = fechaActual.getFullYear();
-
-    const fechaFormateada = `${dia}-${mes}-${anio}`;
-
-    let fechaGranja = fechaFormateada;
-
-    if(granja?.fecha && granja.fecha.includes("-")){
-      const [anio2, mes2, dia2] = granja.fecha.split("-");
-      fechaGranja = `${dia2}-${mes2}-${anio2}`
-
-    }
+   
 
 
     doc.save(
