@@ -7,7 +7,7 @@
 
 :root{
   --color-body:rgb(255, 249, 240);
-  --color-button: rgba(75, 192, 192, 1);
+  --color-button: rgba(75, 192, 192);
   --color-button-border:rgb(6, 28, 28);
   --color-button-hover:rgb(68, 212, 212)
 }

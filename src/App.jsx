@@ -8,6 +8,7 @@ import DatosGranja from "./componentes/DatosGranja.jsx";
 import { jsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 import Layout from "./layout/Layout.jsx";
+import {imagenLogo} from "./logoProsavic.js";
 
 function App() {
   const [reiniciado, setReiniciado] = useState(false);
@@ -235,6 +236,8 @@ useEffect(() => {
     setReiniciado(true);
   }
 
+  
+
   const generarPDF = () => {
     const doc = new jsPDF();
 
@@ -251,30 +254,41 @@ useEffect(() => {
       const [anio2, mes2, dia2] = granja.fecha.split("-");
       fechaGranja = `${dia2}-${mes2}-${anio2}`
 
-    }
-
+    }   
 
     granjas.forEach((granjaData, index) => {
       if (index > 0) {
         doc.addPage();
       }
 
-      let posicionY = 35;
+      doc.setFillColor(255, 249, 240);
+      doc.rect(0, 0, 210, 50, "F");
+      doc.setLineWidth(0.8);
+      doc.setDrawColor(75, 192, 192);
+      doc.line(0, 50, 210,50);
+
+      let posicionY = 65;
       let posicionX = 15;
       //---titulo------
       doc.setFontSize(30);
-      doc.text("PESOS DE BEBES", 105, 20, { align: "center" });
+      doc.text("PESOS DE BEBES", 15, 31);
+
+      doc.addImage(imagenLogo, "PNG", 150, 15, 25, 25);
 
       //----Datos granja--------
       doc.setFontSize(20);
-      doc.text("DATOS DELA GRANJA:", posicionX, posicionY);
+
       const anchoTexto1 = doc.getTextWidth("DATOS DELA GRANJA:");
-      doc.setLineWidth(0.5);
-      doc.line(posicionX, posicionY + 2, posicionX + anchoTexto1, posicionY + 2);
+      const alturaTexto1 = 20*0.35 + 4;
+      
+      doc.setFillColor(255, 249, 240);
+      doc.setDrawColor(75, 192, 192);
+      doc.roundedRect(posicionX, posicionY-alturaTexto1+3, anchoTexto1+10, alturaTexto1,5,5,"FD");
+    
+      doc.text("DATOS DE LA GRANJA:", posicionX+5, posicionY);
 
       doc.setFontSize(15);
 
-      //const [anio, mes, dia] = granjaData.granja.fecha.split("-");
 
       posicionY += 15;
       
@@ -297,11 +311,15 @@ useEffect(() => {
       posicionY += 15;
       
       doc.setFontSize(20);
-      doc.text("PESOS INGRESADOS:", posicionX, posicionY);
       const anchoTexto2 = doc.getTextWidth("PESOS INGRESADOS:");
-      doc.setLineWidth(0.5);
-      doc.line(posicionX, posicionY + 2, posicionX + anchoTexto2, posicionY + 2);
-
+      const alturaTexto2 = 20*0.35 + 4;
+      
+      doc.setFillColor(255, 249, 240);
+      doc.setDrawColor(75, 192, 192);
+      doc.roundedRect(posicionX, posicionY-alturaTexto2+3, anchoTexto2+10, alturaTexto2,5,5,"FD");
+      
+      doc.text("PESOS INGRESADOS:", posicionX+5, posicionY);
+      
       doc.setFontSize(10);
 
       posicionY += 15;
@@ -321,10 +339,13 @@ useEffect(() => {
       posicionY += 15;
       posicionX = 15;
       doc.setFontSize(20);
-      doc.text("ESTADISTICAS:", posicionX, posicionY);
       const anchoTexto3 = doc.getTextWidth("ESTADISTICAS:");
-      doc.setLineWidth(0.5);
-      doc.line(posicionX, posicionY + 2, posicionX + anchoTexto3, posicionY + 2);
+      const alturaTexto3 = 20*0.35 + 4;
+      
+      doc.setFillColor(255, 249, 240);
+      doc.setDrawColor(75, 192, 192);
+      doc.roundedRect(posicionX, posicionY-alturaTexto3+3, anchoTexto3+10, alturaTexto3,5,5,"FD");
+      doc.text("ESTADISTICAS:", posicionX+5, posicionY);
 
       posicionX += 5;
       doc.setFontSize(15);
