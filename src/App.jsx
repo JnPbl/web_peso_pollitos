@@ -10,6 +10,7 @@ import html2canvas from "html2canvas";
 import Layout from "./layout/Layout.jsx";
 
 function App() {
+  const [reiniciado, setReiniciado] = useState(false);
   const [bloqueado, setBloqueado] = useState(false);
   const [pesos, setPesos] = useState([]);
   const [pesosCaja, setPesosCaja] = useState([]);
@@ -55,8 +56,11 @@ useEffect(() => {
 */
 
   useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+    if(reiniciado){
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setReiniciado(false);
+    }
+  }, [reiniciado]);
 
   useEffect(() => {
     if (promedio && desviacion && cv && uniformidad && imagen.image != "") {
@@ -104,7 +108,7 @@ useEffect(() => {
       height: 0,
       image: "",
     });
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    setReiniciado(true);
   };
   const histogramRef = useRef();
   const pesoRef = useRef(null);
@@ -206,6 +210,30 @@ useEffect(() => {
       });
     });
   };
+
+  const reinicio = ()=>{
+    setBloqueado(false);
+  setGranja({
+    nombre: "",
+    fecha: "",
+    lote: "",
+    galpon: "",
+    edad: ""
+  });
+  setPesos([]);
+  setPesosCaja([]);
+  setPromedio(null);
+  setDesviacion(null);
+  setCV(null);
+  setUniformidad(null);
+  setImagen({
+    width: 0,
+    height: 0,
+    image: "",
+  });
+    setGranjas([]); 
+    setReiniciado(true);
+  }
 
   const generarPDF = () => {
     const doc = new jsPDF();
@@ -342,15 +370,13 @@ useEffect(() => {
         imgHeight
       );
     });
-
-   
-
-
+ 
     doc.save(
       `${granja.nombre || "Granja"}_${fechaGranja}.pdf`
     );
+    reinicio();
 
-    window.scrollTo({ top: 0, behavior: "smooth" });
+// window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   return (
@@ -359,6 +385,7 @@ useEffect(() => {
         <div className={styles.container}>
           <h1 className={styles.titulo}>Ingreso de Pesos de Bebés</h1>
           <DatosGranja
+            granja={granja}
             onDatosChange={actualizarDatosGranja}
             onEnter={moverFocus}
             ref={edadRef}

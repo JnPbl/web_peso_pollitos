@@ -1,16 +1,16 @@
-import { useState} from "react";
+//import { useState} from "react";
 import styles from "./DatosGranja.module.css";
 import  { forwardRef } from 'react';
 /* eslint-disable react/prop-types */
-const DatosGranja = forwardRef(({ onDatosChange, onEnter },ref) => {
-  const [granja, setGranja] = useState({
+const DatosGranja = forwardRef(({ granja,onDatosChange, onEnter },ref) => {
+ /* const [granja, setGranja] = useState({
     nombre: "s/nombre",
     fecha: "",
     lote: "s/nombre",
     galpon: "",
     edad:""
   });
-
+*/
   const granjas = [
     "sin nombre",
     "Badia",
@@ -75,12 +75,14 @@ const DatosGranja = forwardRef(({ onDatosChange, onEnter },ref) => {
 
   const manejarCambio = (e) => {
     const { name, value } = e.target;
-
+    const nuevo = { ...granja, [name]: value };
+  onDatosChange(nuevo);
+/*
     setGranja((prevState) => ({
       ...prevState,
       [name]: value, // Actualizamos solo el campo correspondiente
     }));
-    onDatosChange({ ...granja, [name]: value });
+    onDatosChange({ ...granja, [name]: value });*/
   };
 
   return (
