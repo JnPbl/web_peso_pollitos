@@ -23,6 +23,7 @@ function App() {
     fecha: "",
     lote: "s/nombre",
     galpon: "",
+    edad:""
   });
   const [imagen, setImagen] = useState({
     width: 0,
@@ -90,6 +91,7 @@ useEffect(() => {
       fecha: "",
       lote: "",
       galpon: "",
+      edad:""
     });
     setPesos([]);
     setPesosCaja([]);
@@ -106,7 +108,7 @@ useEffect(() => {
   };
   const histogramRef = useRef();
   const pesoRef = useRef(null);
-  const galponRef = useRef(null);
+  const edadRef = useRef(null); 
   const pdfButonRef = useRef(null);
 
   const moverFocus = () => {
@@ -231,7 +233,7 @@ useEffect(() => {
 
       posicionY += 10;
       doc.text(
-        `Granja: ${granjaData.granja.nombre}      Fecha: ${dia}/${mes}/${anio}      Lote: ${granjaData.granja.lote}      Galpon: ${granjaData.granja.galpon} `,
+        `Granja: ${granjaData.granja.nombre}      Fecha: ${dia}/${mes}/${anio}      Lote: ${granjaData.granja.lote}      Galpon: ${granjaData.granja.galpon}   Edad: ${granjaData.granja.edad} `,
         105,
         posicionY,
         { align: "center" }
@@ -339,7 +341,7 @@ useEffect(() => {
           <DatosGranja
             onDatosChange={actualizarDatosGranja}
             onEnter={moverFocus}
-            ref={galponRef}
+            ref={edadRef}
           />
           <PesoForm
             agregarPeso={agregarPeso}

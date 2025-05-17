@@ -13,10 +13,19 @@
 
 .contForm {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-around;
   padding: 15px;
- 
+  gap: 25px;
 }
+
+.contLavelInput{
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+   }
 
 .label{
     font-size: 20px;
@@ -28,7 +37,7 @@
     text-align: center;
     border-radius: 8px;
     height: 28px;
-    width: 220px;
+    width: 100%;
     outline: none;
     transition: all 0.3s ease;
     border: 2px solid black;
@@ -84,6 +93,11 @@
   gap: 5px;
   
  }
+  .contForm :nth-child(5) {
+    grid-column: span 2; /* Ocupa las dos columnas */
+    justify-self: center; /* Lo centra dentro de la celda */
+    width: 50%; /* Opcional: para que no sea demasiado ancho */
+  }
 
  .contLavelInput{
   width: 90%;
@@ -101,15 +115,16 @@
 }
 
 @media (min-width:881px)and (max-width:1440px) {
-  .contForm{
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    gap: 5px;
-   }
-  
+  .contForm {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content:space-around;
+  padding: 15px;
+  gap: 25px;
+}
+     
    .contLavelInput{
-    width: 90%;
+    width: 280px;
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState} from "react";
 import styles from "./DatosGranja.module.css";
 import  { forwardRef } from 'react';
 /* eslint-disable react/prop-types */
@@ -8,6 +8,7 @@ const DatosGranja = forwardRef(({ onDatosChange, onEnter },ref) => {
     fecha: "",
     lote: "s/nombre",
     galpon: "",
+    edad:""
   });
 
   const granjas = [
@@ -53,8 +54,16 @@ const DatosGranja = forwardRef(({ onDatosChange, onEnter },ref) => {
     "Vila 2",
     "Don Roberto",
   ];
+  
 
-  const manejarEnter = (event) => {
+   const manejarEnter = (event) => {
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      ref.current?.focus(); // Llamar la función pasada por el padre
+    }
+  };
+
+  const manejarEnter2 = (event) => {
     if (event.key === 'Enter') {
       onEnter(); // Llamar la función pasada por el padre
     }
@@ -83,7 +92,6 @@ const DatosGranja = forwardRef(({ onDatosChange, onEnter },ref) => {
           <div className={styles.contLavelInput} >
             <label className={styles.label}>Granja</label>
 
-            
             <select
               className={styles.input}
               name="nombre"
@@ -135,8 +143,20 @@ const DatosGranja = forwardRef(({ onDatosChange, onEnter },ref) => {
               name="galpon"
               value={granja.galpon}
               onChange={manejarCambio}
-              ref={ref}
               onKeyDown={manejarEnter}
+            />
+          </div>
+
+          <div className={styles.contLavelInput}>
+            <label className={styles.label}>Edad</label>
+            <input
+              className={styles.input}
+              type="number"
+              name="edad"
+              value={granja.edad}
+              onChange={manejarCambio}
+              ref={ref}
+              onKeyDown={manejarEnter2}
             />
           </div>
         </div>
