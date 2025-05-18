@@ -350,17 +350,18 @@ useEffect(() => {
       posicionX += 5;
       doc.setFontSize(15);
       const totalBB = modo === "individual" ? pesos.length : pesosCaja.length;
+      const unidad = modo === "individual" ? "gr" : "kg" ;
 
       doc.text(`Total de bb pesados:`, posicionX, (posicionY += 10));
       doc.text(`${totalBB}`, 105, posicionY );
       doc.text(`Promedio:`, posicionX, (posicionY += 8));
-      doc.text(`${granjaData.promedio} gr `, 105, posicionY );
+      doc.text(`${granjaData.promedio} ${unidad} `, 105, posicionY );
       doc.text(`Desviacion Estandar:`, posicionX, (posicionY += 8));
       doc.text(`${granjaData.desviacion} `, 105, posicionY);
       doc.text(`Coeficiente de Variacion:`, posicionX, (posicionY += 8));
-      doc.text(`${granjaData.cv}% `, 105, posicionY);
+      doc.text(`${granjaData.cv} % `, 105, posicionY);
       doc.text(`Uniformidad:`, posicionX, (posicionY += 8));
-      doc.text(`${granjaData.uniformidad}% `, 105, posicionY );
+      doc.text(`${granjaData.uniformidad} % `, 105, posicionY );
 
       //------Captura del grafico----------------
 
@@ -438,6 +439,7 @@ useEffect(() => {
             desviacion={desviacion}
             cv={cv}
             uniformidad={uniformidad}
+            modo = {modo}
           />
           <Histograma
             pesos={modo === "individual" ? pesos : pesosCaja}
