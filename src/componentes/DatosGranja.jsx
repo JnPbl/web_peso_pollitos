@@ -150,7 +150,7 @@ const DatosGranja = forwardRef(({ granja,onDatosChange, onEnter },ref) => {
           </div>
 
           <div className={styles.contLavelInput}>
-            <label className={styles.label}>Edad</label>
+            <label className={styles.label}>Edad (días)</label>
             <input
               className={styles.input}
               type="number"

@@ -305,7 +305,7 @@ useEffect(() => {
       doc.text(`${granjaData.granja.galpon}`, 105,posicionY);
       posicionY += 8;
       doc.text(`Edad:` , posicionX+5,posicionY); 
-      doc.text(`${granjaData.granja.edad}` , 105,posicionY);   
+      doc.text(`${granjaData.granja.edad} días` , 105,posicionY);   
 
       //------pesos--------------
       posicionY += 15;
